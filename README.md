@@ -1,7 +1,18 @@
 # Reddit Comment Network Analysis
 #### Network analysis of reddit comments from Nov 2017, with emphasis on bot accounts.
 
-## Data Set Info
+### Dependencies
+
+Python 2.7.13
+BeautifulSoup
+urllib2
+random
+time
+re
+os
+json
+
+### Data Set Info
 
 Comments compiled by reddit user /u/Stuck_In_The_Matrix.
 
