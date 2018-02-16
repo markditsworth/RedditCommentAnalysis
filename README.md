@@ -3,14 +3,14 @@
 
 ### Dependencies
 
-Python 2.7.13
-BeautifulSoup
-urllib2
-random
-time
-re
-os
-json
+Python 2.7.13,
+BeautifulSoup,
+urllib2,
+random,
+time,
+re,
+os,
+json,
 
 ### Data Set Info
 
