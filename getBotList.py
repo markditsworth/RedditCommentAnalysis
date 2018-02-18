@@ -7,7 +7,7 @@ Created on Thu Feb 15 09:59:48 2018
 """
 
 
-# Scrapes /r/BotBustLog to compile a list of known bot accountus during a secified duration of time
+# Scrapes /r/BotBustLog to compile a list of known bot accountus during a specified duration of time
 
 import urllib2
 
@@ -105,7 +105,7 @@ def main():
     start = time.time()
     bot_count = findBotAccts(search_url,log_file,'day',['1','2','3','4','5'])
     print 'Done.'
-    print '{:,} bot accounuts saved.'.format(bot_count)
+    print '{:,} bot accounts saved.'.format(bot_count)
     duration = time.time()-start
     duration_hour = duration/3600
     duration_min = (duration_hour - int(duration_hour))*60
