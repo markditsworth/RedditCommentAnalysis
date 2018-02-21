@@ -5,7 +5,7 @@ Created on Tue Feb  6 19:58:06 2018
 
 @author: markditsworth
 """
-# Question: Is it a good or bad idea to combine multiple information types into an edge's weight?
+# Gets bot names from /r/BotBustLog submission history
 
 import os
 import json
