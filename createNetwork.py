@@ -16,12 +16,11 @@ Edeg Weight: ammount of information sent from one account to another via replyin
              (accounts for hyperlinks)
              
 ################################################################################  
-##  WARNING: This program will require AT LEAST 40 GB of RAM. Do not run without appropriate
+##  WARNING: This program will require AT LEAST 30 GB of RAM. Do not run without appropriate
 ##           memory available.
 ################################################################################
 '''
 
-import os
 import time
 import pandas as pd
 import zen
@@ -102,7 +101,7 @@ def makeNetwork(dataset,bot_list,gml_dst,error_log):
 
 if __name__ == '__main__':
     botList_filename = 'Nov2017_BotList.txt'
-    dataset_filename = '/localdisk/RC_parsed_Nov_2017.txt'
+    dataset_filename = 'RC_parsed_Nov_2017.txt'
     gml_file = 'RedditNetwork_Nov_2017.gml'
     error_log = 'Error_Log.txt'
     #path = '/Volumes/My Passport for Mac/Grad/Networks and Systems'
