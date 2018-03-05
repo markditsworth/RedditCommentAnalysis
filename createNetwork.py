@@ -35,7 +35,7 @@ import sys
 
 def makeNetwork(dataset,bot_list,gml_dst,error_log):
     start = time.time()                         # Get initial time
-    
+    error_flag=0
     G = zen.DiGraph()                           # Initialize directed graph
     
     bots = np.loadtxt(bot_list,dtype=str)       # create array of known bot accounts
@@ -57,12 +57,11 @@ def makeNetwork(dataset,bot_list,gml_dst,error_log):
                 info_score += df['gen_link_num'][commentID]*1100
                 info_score += df['reddit_link_num'][commentID]*reddit_scale
                 info_score += df['pic_link_num'][commentID]*500
-                # add /u/ prefix to allow for botname matching
-                username = "/u/"+username
-                parent = "/u/"+parent
+                
                 G.add_edge(username,parent,weight=info_score)   # add edge
                 # if username is a known bot, mark the node as such
-                if username in bots:
+                # add /u/ prefix to allow for botname matching
+                if '/u/'+username in bots:
                     G.set_node_data(username,'bot')
         
         # If the edge already exists, add the new information score to the existing edge weight
@@ -76,6 +75,7 @@ def makeNetwork(dataset,bot_list,gml_dst,error_log):
         
         # If an unanticipated error happens, log it
         except:
+            error_flag = 1
             error_msg = sys.exc_info()
             TYPE = error_msg[0]
             VALUE = error_msg[1]
@@ -83,7 +83,9 @@ def makeNetwork(dataset,bot_list,gml_dst,error_log):
             error_str = '\n' + TYPE + '\n' + VALUE + '\n' + TB + '\n'
             with open(error_log, 'ab') as fObj:
                 fObj.write(error_str)
-            
+    # Write GML file
+    zen.io.gml.write(G,gml_dst)
+    
     duration = time.time()-start
     duration_hour = duration/3600
     duration_min = (duration_hour - int(duration_hour))*60
@@ -93,12 +95,16 @@ def makeNetwork(dataset,bot_list,gml_dst,error_log):
     with open('Output.txt','wb') as fObj:
         fObj.write('%s nodes, %s edges.\n'%(N,E))
         fObj.write('Processing time: %d hours %d minutes %.2f seconds'%(duration_hour,duration_min,duration_sec))
+    
+    if error_flag:
+        with open('Output.txt','ab') as fObj:
+            fObj.write('\n\nERRORS ENCOUNTERED')
 
 if __name__ == '__main__':
     botList_filename = 'Nov2017_BotList.txt'
-    dataset_filename = 'RC_parsed_Nov_2017.txt'
+    dataset_filename = '/localdisk/RC_parsed_Nov_2017.txt'
     gml_file = 'RedditNetwork_Nov_2017.gml'
     error_log = 'Error_Log.txt'
-    path = '/Volumes/My Passport for Mac/Grad/Networks and Systems'
-    os.chdir(path)
+    #path = '/Volumes/My Passport for Mac/Grad/Networks and Systems'
+    #os.chdir(path)
     makeNetwork(dataset_filename,botList_filename,gml_file,error_log)
