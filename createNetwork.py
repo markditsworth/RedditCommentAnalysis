@@ -25,7 +25,7 @@ import time
 import pandas as pd
 import zen
 import numpy as np
-import sys
+import traceback
 
 #  JSON Dictorary Contents
 #           {'author':username,'comment_len':comment_length,'comment_id':comment_id,
@@ -74,14 +74,11 @@ def makeNetwork(dataset,bot_list,gml_dst,error_log):
         
         # If an unanticipated error happens, log it
         except:
-            error_flag = 1
-            error_msg = sys.exc_info()
-            TYPE = error_msg[0]
-            VALUE = error_msg[1]
-            TB = error_msg[2]
-            error_str = '\n' + TYPE + '\n' + VALUE + '\n' + TB + '\n'
+            err = traceback.format_exc()
             with open(error_log, 'ab') as fObj:
-                fObj.write(error_str)
+                fObj.write(err)
+                fObj.write('\n')
+                
     # Write GML file
     zen.io.gml.write(G,gml_dst)
     
