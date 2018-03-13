@@ -20,6 +20,7 @@ def similarity_matrix(A,tol,max_iter):
     sigma = np.zeros(A.shape)
     diff = 1
     iter_num = 0
+    max_iter_flag=0
     loop = 1
     while loop:
         sigma_new =  np.add(np.multiply(alpha,np.matmul(A,np.matmul(sigma,A))),np.identity(A.shape[0]))
@@ -32,8 +33,10 @@ def similarity_matrix(A,tol,max_iter):
                 loop = 0
             elif iter_num > max_iter:
                 loop = 0
+    if iter_num >= max_iter:
+        max_iter_flag=1
        
-    return sigma
+    return sigma,max_iter_flag
 
 def global_stats(S):
     # Compute global stats
@@ -62,7 +65,11 @@ def analyze(G,filename,tol,max_iter):
     A = G.matrix()
     #print A.dtype
     print 'Adjacency Matrix Created'
-    S = similarity_matrix(A,tol,max_iter)
+    S,flag = similarity_matrix(A,tol,max_iter)
+    if flag:
+        with open('Similarity_Log.txt','ab') as fObj:
+            fObj.write('Similarity Calculation Stopped at maximum iteration limit.\n')
+            
     S = np.subtract(S,np.identity(S.shape[0]))
     #print S
     print 'similarity matrix created'
