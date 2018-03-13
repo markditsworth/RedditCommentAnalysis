@@ -67,7 +67,7 @@ def analyze(G,filename,tol,max_iter):
     print 'Adjacency Matrix Created'
     S,flag = similarity_matrix(A,tol,max_iter)
     if flag:
-        with open('Similarity_Log.txt','ab') as fObj:
+        with open('./Logs/Similarity_Log.txt','ab') as fObj:
             fObj.write('Similarity Calculation Stopped at maximum iteration limit.\n')
             
     S = np.subtract(S,np.identity(S.shape[0]))
