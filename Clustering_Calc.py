@@ -50,8 +50,8 @@ def main(argv):
     else:
         file_error_flag = 0
         try:
-            #G = zen.io.gml.read(networkfile,weight_fxn= lambda x:x['weight'])
-            G = zen.generating.erdos_renyi(20,0.1)
+            G = zen.io.gml.read(network_file,weight_fxn= lambda x:x['weight'])
+            #G = zen.generating.erdos_renyi(20,0.1)
         except IOError:
             print 'Error: Invalid Network File Name.\n'
             file_error_flag = 1

@@ -22,7 +22,7 @@ import pandas as pd
 
 def centrality(G,output_file):
     try:
-        v = zen.algorithms.centrality.eigenvector_centrality_(G,max_iter=300,weighted=False)
+        v = zen.algorithms.centrality.eigenvector_centrality_(G,max_iter=1000,weighted=False)
         print len(v)
         print len(G.nodes_())
         accts = G.nodes()
@@ -59,8 +59,8 @@ def main(argv):
     else:
         file_error_flag = 0
         try:
-            #G = zen.io.gml.read(networkfile,weight_fxn= lambda x:x['weight'])
-            G = zen.generating.erdos_renyi(20,0.1)
+            G = zen.io.gml.read(network_file,weight_fxn= lambda x:x['weight'])
+            #G = zen.generating.erdos_renyi(20,0.1)
         except IOError:
             print 'Error: Invalid Network File Name.\n'
             file_error_flag = 1
