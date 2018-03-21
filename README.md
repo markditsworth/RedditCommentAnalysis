@@ -1,18 +1,11 @@
 # Reddit Comment Network Analysis
 #### Network analysis of reddit comments from Nov 2017, with emphasis on bot accounts.
-
+![Text[(Graphics/InDegreeDist.png)
 ![Text](Graphics/bot_centrality_rankings.png)
 
 ### Dependencies
 
-Python 2.7.13,
-BeautifulSoup,
-urllib2,
-random,
-time,
-re,
-os,
-json,
+Python 2.7.13,BeautifulSoup,urllib2,random,time,re,os,json,numpy,pandas,matplotlib,zen
 
 ### Comment Data Set Info
 
