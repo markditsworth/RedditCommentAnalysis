@@ -4,7 +4,7 @@
 ![Text](Graphics/OutDegreeDist.png)
 ![Text](Graphics/bot_centrality_rankings.png)
 ![Text](Graphics/bot_clustering_coefficients.png)
-![Text](Graphics/CentralityVsClustering.png)
+![Text](Graphics/ClusteringVsCentrality.png)
 
 ### Dependencies
 
