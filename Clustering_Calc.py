@@ -15,7 +15,7 @@ import pandas as pd
 
 def clustering(G,output_file):
     try:
-        c = zen.algorithms.clustering.__lcc_undirected(G)
+        c = zen.algorithms.clustering.__lcc_directed(G)
         accts = G.nodes()
         S = pd.Series(data=c,index=accts)
         S.sort_values(ascending=False,inplace=True)
@@ -31,22 +31,23 @@ def clustering(G,output_file):
 def main(argv):
     p = 0
     network_file = ''
-    bot_file = ''
-    
+    stat_file_name = ''
     while argv:
-        if argv[0] == '-p':
-            p = float(argv[1])
+        if argv[0] == '--remove-bots':
+            p = 1
             
         elif argv[0] == '-N':
             network_file = argv[1]
             
-        elif argv[0] == '-B':
-            bot_file = argv[1]
+        elif argv[0] == '-w':
+            stat_file_name = argv[1]
             
         argv = argv[1:]
     
     if network_file == '':
         print 'Error: Network File Required! Use flag -N'
+    elif stat_file_name == '':
+        print 'Error: Stat File Required! use flag -w'
     else:
         file_error_flag = 0
         try:
@@ -56,27 +57,19 @@ def main(argv):
             print 'Error: Invalid Network File Name.\n'
             file_error_flag = 1
         
-        # Remove p percentage of bots (should be incremental or random?) [incremental right now]
-        if p>0:
-            try:
-                with open(bot_file,'rb') as fObj:
-                    bots = fObj.readlines()
-                
-                n = int(len(bots)*p)
-                bots = bots[0:n]
-                
-                for bot in bots:
-                    bot = bot.strip().split('/')[-1]
-                    G.rm_node(bot)
-            except IOError:
-                print 'Error: Invalid Bot File Name.\n'
-                file_error_flag = 1
+        # remove bot accounts if desired
+        if p:
+            for node in G.nodes():
+                if G.node_data(node)['zenData'] == 'bot':
+                    G.rm_node(node)
+            
+            G.compact()
                 
         if not file_error_flag:  
             suff = '_'.join(str(p).split('.'))          # Suffix denotes bot removal percentage
             log = './Logs/Clustering_Log_'+suff+'.txt'  # Create Log File Name
             # Clustering
-            result = clustering(G,'./Stats/clustering_'+suff+'.csv')
+            result = clustering(G,'./Stats/'+stat_file_name)
             with open(log,'wb') as fObj:
                 fObj.write(result)
         
