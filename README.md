@@ -1,10 +1,6 @@
 # Reddit Comment Network Analysis
 #### Network analysis of reddit comments from Nov 2017, with emphasis on bot accounts.
-%![Text](Graphics/InDegreeDist.png)
-%![Text](Graphics/OutDegreeDist.png)
-%![Text](Graphics/bot_centrality_rankings.png)
-%![Text](Graphics/bot_clustering_coefficients.png)
-%![Text](Graphics/ClusteringVsCentrality.png)
+%![Text](Graphics/Clustering_vs_Out_loglog.png)
 
 ### Dependencies
 
